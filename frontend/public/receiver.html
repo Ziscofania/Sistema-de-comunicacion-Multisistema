@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receptor de Lenguaje de Señas</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1><i class="fas fa-comments"></i> Receptor</h1>
+            <p>Interpreta señas como mensajes</p>
+        </header>
+
+        <div class="control-panel">
+            <div class="room-setup">
+                <input type="text" id="roomId" placeholder="ID de Sala" class="input-field">
+                <button id="connectBtn" class="btn btn-primary">
+                    <i class="fas fa-plug"></i> Conectar
+                </button>
+            </div>
+
+            <div class="display-area">
+                <div class="sign-display">
+                    <div id="signAnimationContainer">
+                        <div class="placeholder">
+                            <i class="fas fa-hands-helping"></i>
+                            <p>Las señas aparecerán aquí</p>
+                        </div>
+                    </div>
+                    <div class="sign-info">
+                        <span id="currentSignLabel">Letra actual: -</span>
+                        <span id="signProgress">0/0</span>
+                    </div>
+                </div>
+
+                <div class="message-display">
+                    <h3><i class="fas fa-comment-dots"></i> Mensajes Recibidos</h3>
+                    <div id="messageOutput"></div>
+                </div>
+            </div>
+
+            <div class="response-controls">
+                <button id="speakBtn" class="btn btn-action">
+                    <i class="fas fa-volume-up"></i> Leer en Voz Alta
+                </button>
+                <button id="copyBtn" class="btn btn-action">
+                    <i class="fas fa-copy"></i> Copiar Texto
+                </button>
+                <textarea id="replyInput" placeholder="Escribe una respuesta..." class="input-field"></textarea>
+                <button id="sendReplyBtn" class="btn btn-send">
+                    <i class="fas fa-reply"></i> Responder
+                </button>
+            </div>
+        </div>
+
+        <div class="status-panel">
+            <div id="connectionStatus" class="status-indicator">
+                <i class="fas fa-circle-notch fa-spin"></i> Desconectado
+            </div>
+            <div id="translationStatus">
+                <i class="fas fa-exchange-alt"></i> Esperando traducción...
+            </div>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/receiver.js"></script>
+        <script src="/js/signAnimation.js"></script> <!-- Animaciones de señas -->
+    </div>
+</body>
+</html>

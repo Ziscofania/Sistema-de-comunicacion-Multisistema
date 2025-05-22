@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transmisor de Lenguaje de Señas</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1><i class="fas fa-hands"></i> Transmisor</h1>
+            <p>Convierte tus señas en mensajes</p>
+        </header>
+
+        <div class="control-panel">
+            <div class="room-setup">
+                <input type="text" id="roomId" placeholder="ID de Sala" class="input-field">
+                <button id="connectBtn" class="btn btn-primary">
+                    <i class="fas fa-plug"></i> Conectar
+                </button>
+            </div>
+
+            <div class="camera-feed">
+                <video id="localVideo" autoplay muted playsinline></video>
+                <canvas id="signCanvas" width="640" height="480"></canvas>
+                <div class="camera-controls">
+                    <button id="startCamera" class="btn btn-action">
+                        <i class="fas fa-video"></i> Activar Cámara
+                    </button>
+                    <button id="stopCamera" class="btn btn-action" disabled>
+                        <i class="fas fa-video-slash"></i> Desactivar
+                    </button>
+                </div>
+            </div>
+
+            <div class="message-section">
+                <textarea id="messageInput" placeholder="Escribe un mensaje para enviar..." class="input-field"></textarea>
+                <div class="action-buttons">
+                    <button id="sendMessageBtn" class="btn btn-send">
+                        <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                    </button>
+                    <button id="clearBtn" class="btn btn-secondary">
+                        <i class="fas fa-trash-alt"></i> Limpiar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-panel">
+            <div id="connectionStatus" class="status-indicator">
+                <i class="fas fa-circle-notch fa-spin"></i> Desconectado
+            </div>
+            <div id="signDetectionStatus">
+                <i class="fas fa-hand-paper"></i> Esperando señas...
+            </div>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/transmitter.js"></script>
+        <script src="/js/signDetection.js"></script> <!-- Tu modelo de detección -->
+    </div>
+</body>
+</html>

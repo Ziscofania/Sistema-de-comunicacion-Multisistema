@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unirse a Sala</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="join-container">
+        <h1>Unirse a Sala</h1>
+        <div id="roomStatus">
+            <p>Ingresa el código de 6 dígitos</p>
+            <input type="text" id="roomCode" maxlength="6" placeholder="ABCDEF">
+            <button id="joinBtn" class="btn">Unirse</button>
+        </div>
+        <div id="roleSelection" style="display: none;">
+            <h2>Selecciona tu rol</h2>
+            <button id="transmitterBtn" class="btn btn-large">
+                <i class="fas fa-video"></i> Transmisor
+            </button>
+            <button id="receiverBtn" class="btn btn-large">
+                <i class="fas fa-comments"></i> Receptor
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const codeFromUrl = urlParams.get('code');
+            
+            if (codeFromUrl) {
+                document.getElementById('roomCode').value = codeFromUrl;
+                checkRoom(codeFromUrl);
+            }
+            
+            document.getElementById('joinBtn').addEventListener('click', () => {
+                const code = document.getElementById('roomCode').value.toUpperCase();
+                checkRoom(code);
+            });
+            
+            async function checkRoom(code) {
+                const response = await fetch(`/api/rooms/${code}`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+                
+                document.getElementById('roomStatus').style.display = 'none';
+                document.getElementById('roleSelection').style.display = 'block';
+                
+                document.getElementById('transmitterBtn').addEventListener('click', () => {
+                    window.location.href = `/transmitter?room=${code}`;
+                });
+                
+                document.getElementById('receiverBtn').addEventListener('click', () => {
+                    window.location.href = `/receiver?room=${code}`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
