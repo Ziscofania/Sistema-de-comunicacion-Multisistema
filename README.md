@@ -1,75 +1,85 @@
-# Sistema de Comunicación por Lenguaje de Señas
+# Sistema de Comunicación por Lenguaje de Señas 👋
 
-## 📌 Descripción del Proyecto
-Este sistema innovador permite la comunicación bidireccional en tiempo real entre personas mediante lenguaje de señas. La solución integra:
+![Banner del Proyecto](https://via.placeholder.com/800x200?text=Sistema+Comunicación+Lenguaje+Señas) <!-- Reemplazar con imagen real -->
 
-- **Módulo transmisor**: Captura y envía señas mediante visión por computadora.
-- **Módulo receptor**: Visualiza e interpreta las señas recibidas.
-- **Conexión remota**: Utiliza WebSockets para comunicación en tiempo real y WebRTC para transmisión de video de baja latencia.
+Un sistema innovador para comunicación bidireccional en tiempo real mediante lenguaje de señas, con soporte para conexiones locales y remotas.
 
----
+## 🚀 Comenzando
 
-## ⚙️ Requisitos del Sistema
-Antes de comenzar, asegúrese de tener instalado:
+Sigue estos sencillos pasos para configurar y usar el sistema.
 
-- Node.js versión 16 o superior
-- npm versión 8 o superior
-- Conexión a internet estable (mínimo 5 Mbps recomendado)
-- Navegador web moderno (Chrome 90+, Firefox 85+, Edge 90+)
+### 📋 Prerrequisitos
 
----
+- Node.js v16+
+- npm v8+
+- Conexión a Internet (5 Mbps mínimo recomendado)
+- Navegador moderno (Chrome 90+, Firefox 85+, Edge 90+)
 
-## 🚀 Instalación y Configuración
+## 🔧 Instalación Local
 
-### Paso 1: Clonar el repositorio
-Para obtener el código fuente, ejecute:
-
+### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tuusuario/sign-language-app.git
+git clone https://github.com/Ziscofania/prueba-de-comunicaci-n-cerrada.git
 cd sign-language-app
 
-Paso 2: Instalar dependencias del servidor (backend)
+2. Instalar dependencias
 
 cd backend
 npm install
 
-Paso 3: Iniciar el servidor
+3. Iniciar el servidor
 
 node server.js
 
-✅ Mensaje de confirmación
+4. Verificar instalación
 
-Si todo está correctamente configurado, deberías ver en la terminal el siguiente mensaje:
+Si todo está correcto, verás en la terminal:
 
 🟢 Servidor operativo en http://localhost:3000
   - Transmisor: http://localhost:3000/transmitter
   - Receptor: http://localhost:3000/receiver
 
-🧪 Uso del Sistema
-1. Modo Transmisor
+🌐 Uso Local
+Modo Transmisor
 
-Acceso: http://localhost:3000/transmitter
+🔗 Acceder a: http://localhost:3000/transmitter
 
-Funcionalidades principales:
+    Activa tu cámara para captura de señas
 
-    Activación de cámara para captura continua de señas.
+    Visualización en tiempo real
 
-    Visualización en tiempo real del flujo de video.
+    Envío de mensajes de texto complementarios
 
-    Panel para envío de mensajes de texto complementarios.
+    Indicadores de estado de conexión
 
-    Indicadores de estado de conexión.
+Modo Receptor
 
-2. Modo Receptor
+🔗 Acceder a: http://localhost:3000/receiver
 
-Acceso: http://localhost:3000/receiver
+    Interpretación visual de señas
 
-Funcionalidades principales:
+    Visualización de mensajes de texto
 
-    Recepción e interpretación visual de señas.
+    Síntesis de voz para audio
 
-    Visualización de mensajes de texto asociados.
+    Historial de conversación
 
-    Reproducción de audio mediante síntesis de voz.
+🌍 Conexión Remota (Nueva Funcionalidad)
 
-    Historial de conversación.
+El sistema ahora soporta conexiones remotas mediante Ngrok:
+
+    Crear sala - Genera una nueva sesión
+
+    Unirse a sala - Conéctate a una sesión existente
+
+    Seleccionar rol - Elige entre Transmisor o Receptor
+
+Ngrok generará 4 URLs:
+
+    Crear sala
+
+    Unirse a sala
+
+    Transmisor
+
+    Receptor
