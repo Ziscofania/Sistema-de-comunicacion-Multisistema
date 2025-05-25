@@ -19,7 +19,7 @@ Sigue estos sencillos pasos para configurar y usar el sistema.
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tuusuario/sign-language-app.git
+git clone https://github.com/Ziscofania/prueba-de-comunicaci-n-cerrada.git
 cd sign-language-app
 
 2. Instalar dependencias
