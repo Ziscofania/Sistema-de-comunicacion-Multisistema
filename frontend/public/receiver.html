@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receptor de Lenguaje de Señas</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/frontend/public/css/styles.css">
+    <link rel="stylesheet" href="/frontend/public/css/receiver.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Animación de pulso para las señas */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -27,7 +37,7 @@
                     <div id="signAnimationContainer">
                         <div class="placeholder">
                             <i class="fas fa-hands-helping"></i>
-                            <p>Las señas aparecerán aquí</p>
+                            <p>Esperando señas...</p>
                         </div>
                     </div>
                     <div class="sign-info">
@@ -43,15 +53,17 @@
             </div>
 
             <div class="response-controls">
-                <button id="speakBtn" class="btn btn-action">
-                    <i class="fas fa-volume-up"></i> Leer en Voz Alta
-                </button>
-                <button id="copyBtn" class="btn btn-action">
-                    <i class="fas fa-copy"></i> Copiar Texto
-                </button>
-                <textarea id="replyInput" placeholder="Escribe una respuesta..." class="input-field"></textarea>
+                <div class="button-group">
+                    <button id="speakBtn" class="btn btn-action">
+                        <i class="fas fa-volume-up"></i> Leer
+                    </button>
+                    <button id="copyBtn" class="btn btn-action">
+                        <i class="fas fa-copy"></i> Copiar
+                    </button>
+                </div>
+                <textarea id="replyInput" placeholder="Escribe una respuesta..." class="input-field" rows="3"></textarea>
                 <button id="sendReplyBtn" class="btn btn-send">
-                    <i class="fas fa-reply"></i> Responder
+                    <i class="fas fa-paper-plane"></i> Enviar Respuesta
                 </button>
             </div>
         </div>
@@ -64,10 +76,55 @@
                 <i class="fas fa-exchange-alt"></i> Esperando traducción...
             </div>
         </div>
-
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/js/receiver.js"></script>
-        <script src="/js/signAnimation.js"></script> <!-- Animaciones de señas -->
     </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Mapeo mejorado de letras a emojis
+        const letterEmojis = {
+            'A': '👐', 'B': '🤲', 'C': '👋', 'D': '🤙', 'E': '✋',
+            'F': '🖐️', 'G': '👌', 'H': '🤏', 'I': '☝️', 'J': '👍',
+            'K': '👎', 'L': '✊', 'M': '👊', 'N': '🤛', 'O': '🤜',
+            'P': '👏', 'Q': '🙌', 'R': '👐', 'S': '🤝', 'T': '✌️',
+            'U': '🤟', 'V': '🤘', 'W': '👆', 'X': '👇', 'Y': '👉', 
+            'Z': '👈', ' ': '✨', '?': '❓', '!': '❗'
+        };
+
+        function displaySign(signal) {
+            const container = document.getElementById('signAnimationContainer');
+            const emoji = letterEmojis[signal.value] || '👋';
+            
+            container.innerHTML = `
+                <div class="sign-animation">
+                    <div class="sign-emoji">${emoji}</div>
+                    <div class="sign-letter">${signal.value}</div>
+                    <div class="sign-confidence">
+                        <div class="confidence-bar" style="width: ${signal.confidence}%"></div>
+                        <span>${signal.confidence}% de precisión</span>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('currentSignLabel').textContent = `Letra: ${signal.value}`;
+            
+            // Animación
+            const signElement = container.querySelector('.sign-animation');
+            signElement.style.animation = 'none';
+            void signElement.offsetWidth; // Trigger reflow
+            signElement.style.animation = 'pulse 0.5s ease';
+        }
+
+        // Manejo básico de conexión (ejemplo)
+        document.getElementById('connectBtn').addEventListener('click', function() {
+            const roomId = document.getElementById('roomId').value.trim();
+            if (roomId) {
+                const statusElement = document.getElementById('connectionStatus');
+                statusElement.innerHTML = '<i class="fas fa-check-circle"></i> Conectado';
+                statusElement.classList.add('connected');
+            }
+        });
+    </script>
+    <script src="/js/receiver.js"></script>
+    <script src="/js/signAnimation.js"></script>
 </body>
 </html>

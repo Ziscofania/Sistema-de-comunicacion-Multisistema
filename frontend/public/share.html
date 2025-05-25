@@ -3,51 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compartir Sala</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <title>Crear Nueva Sala</title>
+    <link rel="stylesheet" href="/frontend/public/css/styles.css">
+    <link rel="stylesheet" href="/frontend/public/css/share.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="share-container">
-        <h1>Comparte esta sala</h1>
-        <div id="roomInfo">
-            <div class="loader">Generando sala...</div>
-        </div>
-        <div class="share-options">
-            <button id="copyBtn" class="btn">
-                <i class="fas fa-copy"></i> Copiar Enlace
+    <div class="container">
+        <div class="card">
+            <h1>Crear Nueva Sala</h1>
+            
+            <button id="createRoomBtn" class="btn-primary">
+                <i class="fas fa-plus-circle"></i> Generar Sala
             </button>
-            <button id="whatsappBtn" class="btn">
-                <i class="fab fa-whatsapp"></i> Compartir por WhatsApp
-            </button>
-        </div>
-        <div id="qrCodeContainer"></div>
+            
+            <div id="roomInfo" style="display:none;">
+                <h3><i class="fas fa-check-circle"></i> Sala Creada</h3>
+                <p>Comparte este código:</p>
+                <div id="roomCode" class="room-code"></div>
+                
+                <div class="share-options">
+                    <a id="transmitterLink" class="btn" target="_blank">
+                        <i class="fas fa-broadcast-tower"></i> Transmisor
+                    </a>
+                    <a id="receiverLink" class="btn" target="_blank">
+                        <i class="fas fa-hands"></i> Receptor
+                    </a>
+                </div>
+                
+                <div class="qr-code" id="qrCode">
+                    <p>Escanear para unirse</p>
+                </div>
+            </div>
     </div>
-
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const response = await fetch('/api/rooms', {
-                method: 'POST'
-            });
+        document.getElementById('createRoomBtn').addEventListener('click', async () => {
+            const response = await fetch('/api/rooms', { method: 'POST' });
             const data = await response.json();
             
-            document.getElementById('roomInfo').innerHTML = `
-                <p>Código: <strong>${data.roomCode}</strong></p>
-                <p>Enlace: <a href="${data.roomUrl}" target="_blank">${data.roomUrl}</a></p>
+            document.getElementById('roomCode').textContent = data.roomCode;
+            document.getElementById('transmitterLink').href = `/transmitter?room=${data.roomCode}`;
+            document.getElementById('receiverLink').href = `/receiver?room=${data.roomCode}`;
+            
+            // Generar QR
+            document.getElementById('qrCode').innerHTML = `
+                <img src="${data.qrCodeUrl}" alt="QR Code para la sala">
+                <p>Escanear para unirse</p>
             `;
             
-            document.getElementById('qrCodeContainer').innerHTML = `
-                <img src="${data.qrCodeUrl}" alt="Código QR para unirse">
-            `;
-            
-            // Funcionalidad de botones
-            document.getElementById('copyBtn').addEventListener('click', () => {
-                navigator.clipboard.writeText(data.roomUrl);
-                alert('Enlace copiado al portapapeles');
-            });
-            
-            document.getElementById('whatsappBtn').addEventListener('click', () => {
-                window.open(`https://wa.me/?text=Únete%20a%20mi%20sala%20de%20lenguaje%20de%20señas:%20${encodeURIComponent(data.roomUrl)}`);
-            });
+            document.getElementById('roomInfo').style.display = 'block';
         });
     </script>
 </body>

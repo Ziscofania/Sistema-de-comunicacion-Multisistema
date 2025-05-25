@@ -4,45 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transmisor de Lenguaje de Señas</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/frontend/public/css/styles.css">
+    <link rel="stylesheet" href="/frontend/public/css/trasmitter.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
         <header class="app-header">
-            <h1><i class="fas fa-hands"></i> Transmisor</h1>
+            <h1><i class="fas fa-hands"></i> <span>Transmisor</span></h1>
             <p>Convierte tus señas en mensajes</p>
         </header>
 
         <div class="control-panel">
             <div class="room-setup">
-                <input type="text" id="roomId" placeholder="ID de Sala" class="input-field">
+                <input type="text" id="roomId" placeholder="Ingresa ID de sala" class="input-field">
                 <button id="connectBtn" class="btn btn-primary">
-                    <i class="fas fa-plug"></i> Conectar
+                    <i class="fas fa-plug"></i> <span>Conectar</span>
                 </button>
             </div>
 
-            <div class="camera-feed">
-                <video id="localVideo" autoplay muted playsinline></video>
-                <canvas id="signCanvas" width="640" height="480"></canvas>
-                <div class="camera-controls">
-                    <button id="startCamera" class="btn btn-action">
-                        <i class="fas fa-video"></i> Activar Cámara
-                    </button>
-                    <button id="stopCamera" class="btn btn-action" disabled>
-                        <i class="fas fa-video-slash"></i> Desactivar
-                    </button>
+            <div class="camera-section">
+                <div class="camera-feed-container">
+                    <div class="camera-feed">
+                        <video id="localVideo" autoplay muted playsinline></video>
+                        <canvas id="signCanvas" width="640" height="480"></canvas>
+                        <div class="camera-overlay">
+                            <div class="detection-frame"></div>
+                            <p class="helper-text">Coloca tus manos dentro del marco</p>
+                        </div>
+                    </div>
+                    
+                    <div class="camera-controls">
+                        <button id="startCamera" class="btn btn-action camera-btn">
+                            <i class="fas fa-video"></i> <span>Activar Cámara</span>
+                        </button>
+                        <button id="stopCamera" class="btn btn-action camera-btn" disabled>
+                            <i class="fas fa-video-slash"></i> <span>Desactivar</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="detection-feedback">
+                    <div class="detection-visualizer">
+                        <div class="hand-indicator left-hand">
+                            <i class="fas fa-hand-paper"></i>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="confidence-level" style="width: 0%"></div>
+                        </div>
+                        <div class="hand-indicator right-hand">
+                            <i class="fas fa-hand-paper"></i>
+                        </div>
+                    </div>
+                    <div id="currentLetter" class="current-letter">
+                        ?
+                    </div>
                 </div>
             </div>
 
             <div class="message-section">
-                <textarea id="messageInput" placeholder="Escribe un mensaje para enviar..." class="input-field"></textarea>
+                <div class="message-header">
+                    <h3><i class="fas fa-comment-alt"></i> Mensaje a enviar</h3>
+                    <div class="character-count"><span id="charCount">0</span>/200</div>
+                </div>
+                <textarea id="messageInput" placeholder="Escribe o genera señas..." class="input-field" rows="4" maxlength="200"></textarea>
                 <div class="action-buttons">
                     <button id="sendMessageBtn" class="btn btn-send">
-                        <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                        <i class="fas fa-paper-plane"></i> <span>Enviar Mensaje</span>
                     </button>
                     <button id="clearBtn" class="btn btn-secondary">
-                        <i class="fas fa-trash-alt"></i> Limpiar
+                        <i class="fas fa-eraser"></i> <span>Limpiar</span>
                     </button>
                 </div>
             </div>
@@ -50,16 +94,33 @@
 
         <div class="status-panel">
             <div id="connectionStatus" class="status-indicator">
-                <i class="fas fa-circle-notch fa-spin"></i> Desconectado
+                <i class="fas fa-circle-notch fa-spin"></i> <span>Desconectado</span>
             </div>
             <div id="signDetectionStatus">
-                <i class="fas fa-hand-paper"></i> Esperando señas...
+                <i class="fas fa-hand-paper"></i> <span>Esperando señas...</span>
             </div>
         </div>
-
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/js/transmitter.js"></script>
-        <script src="/js/signDetection.js"></script> <!-- Tu modelo de detección -->
     </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Mapeo de letras a emojis consistente con el receptor
+        const letterEmojis = {
+            'A': '👐', 'B': '🤲', 'C': '👋', 'D': '🤙', 'E': '✋',
+            'F': '🖐️', 'G': '👌', 'H': '🤏', 'I': '☝️', 'J': '👍',
+            'K': '👎', 'L': '✊', 'M': '👊', 'N': '🤛', 'O': '🤜',
+            'P': '👏', 'Q': '🙌', 'R': '👐', 'S': '🤝', 'T': '✌️',
+            'U': '🤟', 'V': '🤘', 'W': '👆', 'X': '👇', 'Y': '👉', 
+            'Z': '👈', ' ': '✨', '?': '❓', '!': '❗'
+        };
+
+        // Contador de caracteres
+        document.getElementById('messageInput').addEventListener('input', function() {
+            const count = this.value.length;
+            document.getElementById('charCount').textContent = count;
+        });
+    </script>
+    <script src="/frontend/public/js/transmitter.js"></script>
+    <script src="/js/signDetection.js"></script>
 </body>
 </html>

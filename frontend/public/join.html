@@ -4,61 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unirse a Sala</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/frontend/public/css/styles.css">
+    <link rel="stylesheet" href="/frontend/public/css/join.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="join-container">
-        <h1>Unirse a Sala</h1>
-        <div id="roomStatus">
-            <p>Ingresa el código de 6 dígitos</p>
-            <input type="text" id="roomCode" maxlength="6" placeholder="ABCDEF">
-            <button id="joinBtn" class="btn">Unirse</button>
-        </div>
-        <div id="roleSelection" style="display: none;">
-            <h2>Selecciona tu rol</h2>
-            <button id="transmitterBtn" class="btn btn-large">
-                <i class="fas fa-video"></i> Transmisor
-            </button>
-            <button id="receiverBtn" class="btn btn-large">
-                <i class="fas fa-comments"></i> Receptor
-            </button>
+    <div class="container">
+        <div class="card">
+            <h1>Unirse a Sala</h1>
+            
+            <input type="text" id="roomCodeInput" placeholder="Ingresa el código de la sala" autocomplete="off">
+            <button id="checkRoomBtn" class="btn">Verificar Sala</button>
+            
+            <div id="roomStatus" style="display:none;">
+                <p>Estado: <span id="statusText"></span></p>
+                <p>Participantes activos: <span id="participantsCount"></span></p>
+                
+                <div class="role-select">
+                    <h3>Selecciona tu rol:</h3>
+                    <button id="joinAsTransmitter" class="btn">
+                        <i class="fas fa-broadcast-tower"></i> Transmisor
+                    </button>
+                    <button id="joinAsReceiver" class="btn">
+                        <i class="fas fa-hands"></i> Receptor
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const codeFromUrl = urlParams.get('code');
+        document.getElementById('checkRoomBtn').addEventListener('click', async () => {
+            const roomCode = document.getElementById('roomCodeInput').value.trim();
+            if (!roomCode) return;
             
-            if (codeFromUrl) {
-                document.getElementById('roomCode').value = codeFromUrl;
-                checkRoom(codeFromUrl);
-            }
-            
-            document.getElementById('joinBtn').addEventListener('click', () => {
-                const code = document.getElementById('roomCode').value.toUpperCase();
-                checkRoom(code);
-            });
-            
-            async function checkRoom(code) {
-                const response = await fetch(`/api/rooms/${code}`);
+            try {
+                const response = await fetch(`/api/rooms/${roomCode}`);
                 const data = await response.json();
                 
                 if (data.error) {
-                    alert(data.error);
-                    return;
+                    document.getElementById('statusText').textContent = data.error;
+                    document.getElementById('statusText').style.color = 'red';
+                } else {
+                    document.getElementById('statusText').textContent = 'Sala activa';
+                    document.getElementById('statusText').style.color = 'green';
+                    document.getElementById('participantsCount').textContent = data.participants;
+                    
+                    // Configurar botones de rol
+                    document.getElementById('joinAsTransmitter').onclick = () => {
+                        window.location.href = `/transmitter?room=${roomCode}`;
+                    };
+                    
+                    document.getElementById('joinAsReceiver').onclick = () => {
+                        window.location.href = `/receiver?room=${roomCode}`;
+                    };
                 }
                 
-                document.getElementById('roomStatus').style.display = 'none';
-                document.getElementById('roleSelection').style.display = 'block';
-                
-                document.getElementById('transmitterBtn').addEventListener('click', () => {
-                    window.location.href = `/transmitter?room=${code}`;
-                });
-                
-                document.getElementById('receiverBtn').addEventListener('click', () => {
-                    window.location.href = `/receiver?room=${code}`;
-                });
+                document.getElementById('roomStatus').style.display = 'block';
+            } catch (err) {
+                console.error('Error:', err);
             }
         });
     </script>

@@ -1,0 +1,165 @@
+/* Estilos base - consistentes con join.css */
+body {
+    background-color: #f5f0ff;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #3a1b6a;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+}
+
+/* Tarjeta principal */
+.card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(106, 33, 203, 0.1);
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(106, 33, 203, 0.15);
+}
+
+/* Títulos */
+h1 {
+    color: #6a21cb;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 2.2rem;
+}
+
+h3 {
+    color: #8a4fff;
+    margin-bottom: 1rem;
+}
+
+/* Botón principal */
+.btn-primary {
+    background-color: #8a4fff;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+    background-color: #6a21cb;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(106, 33, 203, 0.2);
+}
+
+/* Sección de sala creada */
+#roomInfo {
+    margin-top: 2rem;
+    animation: fadeIn 0.6s ease-out;
+}
+
+#roomCode {
+    display: inline-block;
+    background-color: #f0e5ff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 1.2rem;
+    color: #6a21cb;
+    margin: 0.5rem 0;
+}
+
+/* Opciones de compartir */
+.share-options {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    justify-content: center;
+}
+
+.share-options .btn {
+    background-color: #e0d0ff;
+    color: #6a21cb;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 150px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.share-options .btn:hover {
+    background-color: #d0b0ff;
+    transform: translateY(-2px);
+}
+
+/* QR Code */
+.qr-code {
+    margin: 1.5rem auto;
+    padding: 1rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    max-width: 200px;
+}
+
+.qr-code img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.qr-code p {
+    margin-top: 0.8rem;
+    color: #6a21cb;
+    font-size: 0.9rem;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .card {
+        padding: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .share-options {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .share-options .btn {
+        max-width: 100%;
+        width: 100%;
+    }
+}

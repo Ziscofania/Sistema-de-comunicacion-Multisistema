@@ -1,0 +1,231 @@
+/* Estilo base */
+body {
+    background-color: #f8f5ff;
+    font-family: 'Poppins', sans-serif;
+    color: #3a1b6a;
+}
+
+.app-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.app-header h1 {
+    color: #6a21cb;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.app-header p {
+    color: #8a4fff;
+    font-size: 1.1rem;
+}
+
+/* Panel de conexión */
+.room-setup {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.input-field {
+    flex: 1;
+    padding: 1rem;
+    border: 2px solid #e0d0ff;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #9c64ff;
+    box-shadow: 0 0 0 3px rgba(156, 100, 255, 0.2);
+    outline: none;
+}
+
+.btn {
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background-color: #8a4fff;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #6a21cb;
+    transform: translateY(-2px);
+}
+
+/* Área de visualización */
+.display-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.sign-display {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px rgba(106, 33, 203, 0.1);
+    text-align: center;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Estilo para las letras/señas */
+.sign-animation {
+    font-size: 8rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: #6a21cb;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign-emoji {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.sign-confidence {
+    font-size: 1rem;
+    color: #8a4fff;
+    margin-top: 1rem;
+}
+
+.sign-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #6a21cb;
+}
+
+/* Mensajes recibidos */
+.message-display {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 20px rgba(106, 33, 203, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.message-display h3 {
+    color: #6a21cb;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.message {
+    background: #f5f0ff;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    color: #8a4fff;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.message-content {
+    font-size: 1.1rem;
+}
+
+/* Controles */
+.response-controls {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 20px rgba(106, 33, 203, 0.1);
+    margin-bottom: 2rem;
+}
+
+.btn-action {
+    background: #e0d0ff;
+    color: #6a21cb;
+    border: none;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn-action:hover {
+    background: #d0b0ff;
+}
+
+.btn-send {
+    background: #6a21cb;
+    color: white;
+    border: none;
+    width: 100%;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.btn-send:hover {
+    background: #5a1cb3;
+}
+
+/* Panel de estado */
+.status-panel {
+    display: flex;
+    justify-content: space-between;
+    color: #6a21cb;
+    font-size: 0.9rem;
+}
+
+.status-indicator.connected {
+    color: #4CAF50;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .display-area {
+        grid-template-columns: 1fr;
+    }
+    
+    .room-setup {
+        flex-direction: column;
+    }
+}
