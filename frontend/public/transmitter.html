@@ -4,11 +4,299 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transmisor de Lenguaje de Señas</title>
-    <link rel="stylesheet" href="/frontend/public/css/styles.css">
-    <link rel="stylesheet" href="/frontend/public/css/trasmitter.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* Estilos base */
+        body {
+            background-color: #f8f5ff;
+            font-family: 'Poppins', sans-serif;
+            color: #3a1b6a;
+            margin: 0;
+            padding: 0;
+        }
+
+        .app-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        .app-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .app-header h1 {
+            color: #6a21cb;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .app-header p {
+            color: #8a4fff;
+            font-size: 1.1rem;
+        }
+
+        /* Panel de control */
+        .control-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 25px rgba(106, 33, 203, 0.1);
+        }
+
+        .room-setup {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-field {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e0d0ff;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: #9c64ff;
+            box-shadow: 0 0 0 3px rgba(156, 100, 255, 0.2);
+            outline: none;
+        }
+
+        /* Sección de cámara */
+        .camera-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .camera-feed-container {
+            position: relative;
+        }
+
+        .camera-feed {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #000;
+            aspect-ratio: 4/3;
+        }
+
+        .camera-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .detection-frame {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 70%;
+            border: 3px dashed rgba(138, 79, 255, 0.7);
+            border-radius: 10px;
+        }
+
+        .helper-text {
+            position: absolute;
+            bottom: 1rem;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            background: rgba(106, 33, 203, 0.7);
+            padding: 0.5rem;
+            margin: 0;
+        }
+
+        .camera-controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .camera-btn {
+            flex: 1;
+        }
+
+        /* Feedback de detección */
+        .detection-feedback {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .detection-visualizer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hand-indicator {
+            font-size: 2rem;
+            color: #8a4fff;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .hand-indicator.active {
+            opacity: 1;
+            animation: pulse 1s infinite;
+        }
+
+        .confidence-meter {
+            flex: 1;
+            height: 10px;
+            background: #f0e5ff;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .confidence-level {
+            height: 100%;
+            background: linear-gradient(90deg, #8a4fff, #6a21cb);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .current-letter {
+            font-size: 8rem;
+            text-align: center;
+            line-height: 1;
+            color: #6a21cb;
+            font-weight: bold;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Sección de mensaje */
+        .message-section {
+            margin-top: 2rem;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-header h3 {
+            color: #6a21cb;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .character-count {
+            color: #8a4fff;
+            font-size: 0.9rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Botones */
+        .btn {
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn span {
+            pointer-events: none;
+        }
+
+        .btn-primary {
+            background-color: #8a4fff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #6a21cb;
+            transform: translateY(-2px);
+        }
+
+        .btn-action {
+            background: #e0d0ff;
+            color: #6a21cb;
+        }
+
+        .btn-action:hover {
+            background: #d0b0ff;
+        }
+
+        .btn-send {
+            background: #6a21cb;
+            color: white;
+            flex: 2;
+        }
+
+        .btn-send:hover {
+            background: #5a1cb3;
+        }
+
+        .btn-secondary {
+            background: #f0e5ff;
+            color: #6a21cb;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #e0d0ff;
+        }
+
+        /* Panel de estado */
+        .status-panel {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            color: #6a21cb;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator.connected {
+            color: #4CAF50;
+        }
+
+        /* Animaciones */
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -18,6 +306,26 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .camera-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .room-setup {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .current-letter {
+                font-size: 5rem;
+                min-height: 100px;
+            }
         }
     </style>
 </head>
@@ -114,13 +422,189 @@
             'Z': '👈', ' ': '✨', '?': '❓', '!': '❗'
         };
 
-        // Contador de caracteres
-        document.getElementById('messageInput').addEventListener('input', function() {
-            const count = this.value.length;
-            document.getElementById('charCount').textContent = count;
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io();
+            const roomInput = document.getElementById('roomId');
+            const connectBtn = document.getElementById('connectBtn');
+            const startCameraBtn = document.getElementById('startCamera');
+            const stopCameraBtn = document.getElementById('stopCamera');
+            const messageInput = document.getElementById('messageInput');
+            const sendMessageBtn = document.getElementById('sendMessageBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const connectionStatus = document.getElementById('connectionStatus');
+            const signDetectionStatus = document.getElementById('signDetectionStatus');
+            const localVideo = document.getElementById('localVideo');
+            const signCanvas = document.getElementById('signCanvas');
+            const ctx = signCanvas.getContext('2d');
+            const currentLetterDisplay = document.getElementById('currentLetter');
+
+            let roomId = '';
+            let stream = null;
+            let isCameraOn = false;
+            let signDetectionInterval;
+
+            // Contador de caracteres
+            messageInput.addEventListener('input', function() {
+                const count = this.value.length;
+                document.getElementById('charCount').textContent = count;
+            });
+
+            // Conectar a sala
+            connectBtn.addEventListener('click', () => {
+                roomId = roomInput.value.trim() || 'default';
+                
+                socket.emit('join_room', roomId, 'transmitter');
+                updateConnectionStatus(true, `Conectado en sala: ${roomId}`);
+                
+                // Iniciar detección de señas (simulado)
+                startSignDetection();
+            });
+
+ startCameraBtn.addEventListener('click', async () => {
+                try {
+                    // Detener cualquier stream existente primero
+                    if (stream) {
+                        stream.getTracks().forEach(track => track.stop());
+                    }
+                    
+                    // Solicitar permisos de cámara
+                    stream = await navigator.mediaDevices.getUserMedia({
+                        video: {
+                            width: { ideal: 640 },
+                            height: { ideal: 480 },
+                            facingMode: "user" // Usar cámara frontal
+                        },
+                        audio: false
+                    });
+                    
+                    localVideo.srcObject = stream;
+                    isCameraOn = true;
+                    startCameraBtn.disabled = true;
+                    stopCameraBtn.disabled = false;
+                    
+                    // Mostrar mensaje de éxito
+                    signDetectionStatus.innerHTML = '<i class="fas fa-check-circle"></i> Cámara activada';
+                    
+                    // Esperar a que el video esté listo
+                    localVideo.onloadedmetadata = () => {
+                        console.log("Cámara activada con resolución:", 
+                            localVideo.videoWidth, "x", localVideo.videoHeight);
+                    };
+                    
+                } catch (err) {
+                    console.error("Error al acceder a la cámara:", err);
+                    let errorMessage = "Error al acceder a la cámara";
+                    
+                    // Mensajes de error más específicos
+                    if (err.name === 'NotAllowedError') {
+                        errorMessage = "Permiso de cámara denegado. Por favor habilita los permisos.";
+                    } else if (err.name === 'NotFoundError') {
+                        errorMessage = "No se encontró cámara disponible";
+                    } else if (err.name === 'NotReadableError') {
+                        errorMessage = "La cámara no puede ser accedida (puede estar en uso por otra aplicación)";
+                    }
+                    
+                    signDetectionStatus.innerHTML = 
+                        `<i class="fas fa-exclamation-triangle"></i> ${errorMessage}`;
+                    
+                    // Restablecer controles
+                    startCameraBtn.disabled = false;
+                    stopCameraBtn.disabled = true;
+                }
+            });
+
+            stopCameraBtn.addEventListener('click', () => {
+                if (stream) {
+                    // Detener todas las pistas del stream
+                    stream.getTracks().forEach(track => {
+                        track.stop();
+                        console.log("Track detenido:", track.kind);
+                    });
+                    
+                    localVideo.srcObject = null;
+                    isCameraOn = false;
+                    startCameraBtn.disabled = false;
+                    stopCameraBtn.disabled = true;
+                    signDetectionStatus.innerHTML = '<i class="fas fa-video-slash"></i> Cámara desactivada';
+                }
+            });
+
+            // Enviar mensaje
+            sendMessageBtn.addEventListener('click', () => {
+                const message = messageInput.value.trim();
+                if (message && roomId) {
+                    socket.emit('send_message', roomId, message);
+                    messageInput.value = '';
+                    document.getElementById('charCount').textContent = '0';
+                }
+            });
+
+            // Limpiar
+            clearBtn.addEventListener('click', () => {
+                messageInput.value = '';
+                document.getElementById('charCount').textContent = '0';
+            });
+
+            // Simulación de detección de señas
+            function startSignDetection() {
+                signDetectionInterval = setInterval(() => {
+                    if (isCameraOn && roomId) {
+                        // Aquí iría tu modelo de detección real
+                        const fakeSign = String.fromCharCode(65 + Math.floor(Math.random() * 26)); // Letra aleatoria A-Z
+                        const confidence = (Math.random() * 100).toFixed(2);
+                        
+                        // Actualizar UI
+                        currentLetterDisplay.textContent = fakeSign;
+                        
+                        // Actualizar medidor de confianza
+                        document.querySelector('.confidence-level').style.width = `${confidence}%`;
+                        
+                        // Activar indicadores de mano
+                        document.querySelectorAll('.hand-indicator').forEach(indicator => {
+                            indicator.classList.toggle('active', Math.random() > 0.5);
+                        });
+                        
+                        // Dibujar en canvas (simulación)
+                        ctx.clearRect(0, 0, signCanvas.width, signCanvas.height);
+                        ctx.fillStyle = '#00FF00';
+                        ctx.font = '30px Arial';
+                        ctx.fillText(fakeSign, 50, 50);
+                        
+                        // Enviar señal
+                        socket.emit('send_signal', roomId, {
+                            type: 'letter',
+                            value: fakeSign,
+                            confidence: confidence,
+                            timestamp: Date.now(),
+                            emoji: letterEmojis[fakeSign] || '❓'
+                        });
+                    }
+                }, 2000);
+            }
+
+            function updateConnectionStatus(isConnected, message) {
+                const icon = connectionStatus.querySelector('i');
+                if (isConnected) {
+                    connectionStatus.innerHTML = '<i class="fas fa-check-circle"></i> ' + message;
+                    connectionStatus.classList.add('connected');
+                } else {
+                    connectionStatus.innerHTML = '<i class="fas fa-times-circle"></i> ' + message;
+                    connectionStatus.classList.remove('connected');
+                }
+            }
+
+            // Manejo de desconexión
+            socket.on('disconnect', () => {
+                updateConnectionStatus(false, 'Desconectado del servidor');
+                if (signDetectionInterval) clearInterval(signDetectionInterval);
+            });
         });
+         // Elemento donde se mostrará la letra actual
+    const currentLetterDisplay = document.querySelector('.current-letter');
+
+    // Variables para almacenar letras y oraciones
+    let currentLetter = '';
+    let sentence = '';
     </script>
-    <script src="/frontend/public/js/transmitter.js"></script>
-    <script src="/js/signDetection.js"></script>
 </body>
 </html>
