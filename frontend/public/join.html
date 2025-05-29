@@ -7,6 +7,131 @@
     <link rel="stylesheet" href="/frontend/public/css/styles.css">
     <link rel="stylesheet" href="/frontend/public/css/join.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos base */
+body {
+    background-color: #f5f0ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #3a1b6a;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+}
+
+/* Tarjeta principal */
+.card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(106, 33, 203, 0.1);
+    padding: 2.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(106, 33, 203, 0.15);
+}
+
+/* Títulos */
+h1 {
+    color: #6a21cb;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    font-size: 2.2rem;
+}
+
+/* Campos de entrada */
+#roomCodeInput {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e0d0ff;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    transition: border 0.3s ease;
+    text-align: center;
+}
+
+#roomCodeInput:focus {
+    outline: none;
+    border-color: #9c64ff;
+    box-shadow: 0 0 0 3px rgba(156, 100, 255, 0.2);
+}
+
+/* Botones */
+.btn {
+    background-color: #8a4fff;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin: 0.5rem 0;
+    font-weight: 500;
+}
+
+.btn:hover {
+    background-color: #6a21cb;
+    transform: translateY(-2px);
+}
+
+/* Sección de estado */
+#roomStatus {
+    margin-top: 2rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.role-select {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f0e5ff;
+}
+
+/* Textos de estado */
+#statusText {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+#participantsCount {
+    font-weight: 600;
+    color: #8a4fff;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .card {
+        padding: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+}
+    </style>
 </head>
 <body>
     <div class="container">
