@@ -1,0 +1,242 @@
+/* courses.css - Estilos específicos para la página de cursos */
+
+/* Mantenemos el fondo degradado del general.css pero con ajustes para contenido largo */
+main {
+    background: linear-gradient(to bottom, #ffffff 0%, #f8f3fc 20%, #f8f3fc 80%, #ffffff 100%);
+    color: #333;
+    padding: 40px 0;
+}
+
+/* Estilos para el encabezado de cursos */
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #e0d6f0;
+    margin-bottom: 30px;
+}
+
+/* Contenedor principal de cursos */
+.course-categories, .special-courses, .resources, .benefits {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Títulos de sección */
+.course-categories h2, 
+.special-courses h2, 
+.resources h2, 
+.benefits h2 {
+    color: #6b4e9b;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.course-categories h2::after, 
+.special-courses h2::after, 
+.resources h2::after, 
+.benefits h2::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: #8a6bb5;
+    margin: 15px auto;
+}
+
+/* Estilos para las tarjetas de cursos */
+.course-levels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.course-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 20px rgba(106, 17, 203, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(106, 17, 203, 0.2);
+}
+
+.course-card h3 {
+    color: #6b4e9b;
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0d6f0;
+}
+
+.course-card ul {
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+
+.course-card li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Botones de cursos */
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    display: block;
+}
+
+.cta-button:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+}
+
+/* Cursos especializados */
+.special-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.special-course {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.special-course:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(106, 17, 203, 0.1);
+}
+
+.special-course h3 {
+    color: #6b4e9b;
+    font-size: 1.3rem;
+    margin-top: 0;
+}
+
+.special-course p {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Recursos */
+.resources-list {
+    columns: 2;
+    column-gap: 40px;
+    list-style-type: none;
+    padding: 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.resources-list li {
+    background: #f8f3fc;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    break-inside: avoid;
+    position: relative;
+    padding-left: 40px;
+}
+
+.resources-list li::before {
+    content: '✓';
+    color: #6a11cb;
+    font-weight: bold;
+    position: absolute;
+    left: 15px;
+}
+
+/* Beneficios */
+.benefits-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.benefit {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.benefit h3 {
+    color: #6b4e9b;
+    font-size: 1.3rem;
+}
+
+.benefit p {
+    color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .resources-list {
+        columns: 1;
+    }
+    
+    .course-levels, 
+    .special-courses-grid,
+    .benefits-container {
+        grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.course-card, .special-course, .benefit {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.course-card:nth-child(2) { animation-delay: 0.2s; }
+.course-card:nth-child(3) { animation-delay: 0.4s; }
+.special-course:nth-child(2) { animation-delay: 0.2s; }
+.special-course:nth-child(3) { animation-delay: 0.3s; }
+.special-course:nth-child(4) { animation-delay: 0.4s; }
+.benefit:nth-child(2) { animation-delay: 0.2s; }
+.benefit:nth-child(3) { animation-delay: 0.4s; }

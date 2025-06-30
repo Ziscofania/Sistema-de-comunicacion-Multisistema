@@ -1,0 +1,38 @@
+.navbar {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar li {
+    display: inline;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.navbar a:hover {
+    background: white;
+    color: #3b1d72;
+}
+
+

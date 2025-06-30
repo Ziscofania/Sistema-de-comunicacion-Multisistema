@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.hand {
+    position: fixed;
+    top: 50%;
+    width: 120px; /* Tamaño uniforme */
+    height: 120px; /* Altura uniforme */
+    transition: transform 0.2s ease-out;
+}
+
+.hand img {
+    width: 100%;  /* La imagen se ajusta al ancho del contenedor */
+    height: 100%; /* La imagen se ajusta a la altura del contenedor */
+    object-fit: contain; /* Asegura que la imagen mantenga su proporción sin recortarse */
+}
+
+.left-hand {
+    left: 10px;
+    transform: translateX(0);
+}
+
+.right-hand {
+    right: 10px;
+    transform: translateX(0);
+}
+
+.content {
+    margin-top: 100px;
+    padding: 20px;
+}
+
+.hand {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Clases dinámicas que se aplicarán con JavaScript */
+.hidden {
+    opacity: 0;
+}

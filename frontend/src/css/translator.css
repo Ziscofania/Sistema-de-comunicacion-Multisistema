@@ -1,0 +1,382 @@
+:root {
+    --primary-color: #6a1b9a;
+    --primary-light: #9c4dcc;
+    --primary-dark: #38006b;
+    --accent-color: #ffab00;
+    --text-light: #f3e5f5;
+    --text-dark: #212121;
+    --background: #f5f5f5;
+    --card-bg: #ffffff;
+    --error-color: #d32f2f;
+    --success-color: #388e3c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.navbar {
+    background-color: var(--primary-dark);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 2rem;
+}
+
+.navbar a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.navbar a:hover, .navbar a.active {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.translator-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.title {
+    color: var(--primary-dark);
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--primary-light);
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+.translation-boxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.input-box, .output-box {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 0.5rem;
+}
+
+.input-options, .voice-controls, .action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-light);
+}
+
+.btn-secondary {
+    background-color: #e0e0e0;
+    color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+    background-color: #bdbdbd;
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+    color: var(--text-dark);
+}
+
+.btn-accent:hover {
+    background-color: #ffc107;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #000;
+}
+
+#cameraFeed, #signCanvas {
+    width: 100%;
+    display: block;
+}
+
+#signCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 1rem;
+    border: 1px solid #bdbdbd;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.2);
+}
+
+.output-display {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sign-animation {
+    min-height: 200px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.sign-placeholder {
+    text-align: center;
+    color: var(--primary-light);
+}
+
+.sign-placeholder i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.text-output {
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-radius: 8px;
+    min-height: 100px;
+}
+
+.history-section {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.history-section h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+#historyList {
+    list-style: none;
+}
+
+#historyList li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.floating-help {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+.btn-help {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-help:hover {
+    background-color: var(--primary-light);
+    transform: scale(1.1);
+}
+
+.help-panel {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    width: 300px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.help-panel.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 768px) {
+    .translation-boxes {
+        grid-template-columns: 1fr;
+    }
+    
+    .navbar ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .help-panel {
+        width: 250px;
+        right: -100px;
+    }
+}
+/* Añadir al final del archivo CSS existente */
+
+.sign-display-system {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.sign-input-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#wordInput {
+    flex-grow: 1;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--primary-light);
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.sequence-display {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.sign-image-container {
+    min-height: 300px;
+    background-color: #f0e5ff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.sign-image-container img {
+    max-width: 100%;
+    max-height: 280px;
+    object-fit: contain;
+}
+
+.instruction {
+    color: var(--primary-dark);
+    font-style: italic;
+}
+
+.sequence-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.progress-container {
+    margin-top: 1rem;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+#currentLetter {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.progress-bar {
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary-light);
+    width: 0%;
+    transition: width 0.3s ease;
+}

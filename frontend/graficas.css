@@ -1,0 +1,46 @@
+.charts-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.charts-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #5e35b1;
+}
+
+.chart-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.chart-box {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: calc(50% - 15px);
+}
+
+.chart-box canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+.full-width .chart-box {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .chart-box {
+        width: 100%;
+    }
+    
+    .chart-row {
+        flex-direction: column;
+    }
+}
