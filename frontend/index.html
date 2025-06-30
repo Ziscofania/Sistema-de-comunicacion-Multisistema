@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="/frontend/src/css/navbar.css">
+    <link rel="stylesheet" href="/frontend/src/css/manos.css">
+    <link rel="stylesheet" href="/frontend/src/css/general.css">
+    <link rel="stylesheet" href="/frontend/src/css/graficas.css">
+    <link rel="stylesheet" href="/frontend/src/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <header class="hero">
+        <div class="overlay"></div>
+        <h1>Explora el Lenguaje de Señas</h1>
+    </header>
+    
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="/frontend/src/pages/about.html">Acerca de Nosotros</a></li>
+            <li><a href="/sing-languaje-app/sing-language-app/Fronted/src/pages/practica.html">Traductor</a></li>
+            <li><a href="/sing-languaje-app/sing-language-app/Fronted/src/pages/courses.html">Cursos</a></li>
+        </ul>
+    </nav>
+    <div class="text-container fade-in">
+        <h2 class="title situacion">Situación</h2>
+        <p>En Colombia, cerca de 459,772 personas viven con discapacidad auditiva, enfrentándose a barreras significativas en su comunicación diaria. Aunque existen intérpretes de lenguaje de señas, su disponibilidad es limitada, lo que dificulta la interacción en entornos laborales, educativos y sociales. Esta falta de comunicación efectiva no solo incrementa la discriminación, sino que también limita las oportunidades de inclusión y desarrollo personal y profesional de las personas sordomudas.</p>
+    </div>
+    <div class="text-container fade-in">
+        <h2 class="subtitulo">Aporte</h2>
+        <p>Estamos transformando la comunicación y derribando barreras para la comunidad sordomuda. Nuestra aplicación facilita la interacción diaria entre personas sordomudas y oyentes, creando un puente que promueve la inclusión y mejora la calidad de vida. Con esta herramienta, no solo damos voz a quienes la necesitan, sino que también sensibilizamos a la sociedad hacia una mayor equidad y respeto por la diversidad.</p>
+    </div>
+    <!-- Sección de gráficas -->
+<div class="charts-container fade-in">
+    <h2>Datos en contexto: Discapacidad Auditiva en Colombia</h2>
+    
+    <div class="chart-row">
+        <div class="chart-box fade-in">
+            <canvas id="chart1"></canvas>
+        </div>
+        <div class="chart-box fade-in">
+            <canvas id="chart2"></canvas>
+        </div>
+    </div>
+    
+    <div class="chart-row">
+        <div class="chart-box fade-in">
+            <canvas id="chart3"></canvas>
+        </div>
+        <div class="chart-box fade-in">
+            <canvas id="chart4"></canvas>
+        </div>
+    </div>
+    
+    <div class="chart-row">
+        <div class="chart-box fade-in">
+            <canvas id="chart5"></canvas>
+        </div>
+        <div class="chart-box fade-in">
+            <canvas id="chart6"></canvas>
+        </div>
+    </div>
+    
+    <div class="chart-row full-width">
+        <div class="chart-box fade-in">
+            <canvas id="chart7"></canvas>
+        </div>
+    </div>
+</div>
+    <div class="info-box fade-in">
+        <h2 class="recuadro">¿Necesitas más información?</h2>
+        <button class="comunicate" onclick="openTab(event, 'about-us')">Comunícate con nosotros</button>
+    </div>
+    <div class="frase fade-in">
+        <h2>"Rompiendo Barreras, Conectando Mundos: La app que transforma señas en palabras para una comunicación sin límites."</h2>
+    </div>
+
+    <div class="video-container fade-in">
+        <video controls>
+            <source src="/frontend/public/videos/Y2meta.app-¿La lengua de señas es universal_.mp4" type="video/mp4">
+        </video>
+        <div class="text-content fade-in">
+            <h3>Video ilustrativo de la realidad cultural de las personas sordomudas</h3>
+            <p>Agradecimientos al canal de CuriosaMente por prestar los derechos de autor para fines educativos.</p>
+            <p>
+                Haz clic en el siguiente enlace para visitar el canal de YouTube:
+                <a href="https://www.youtube.com/curiosamente" target="_blank">CuriosaMente</a>
+            </p>
+        </div>
+    </div>
+
+<div class="hand left-hand">
+    <img src="/frontend/public/assets/left-hand copy 2.png" alt="Mano izquierda">
+</div>
+
+<div class="hand right-hand">
+    <img src="/frontend/public/assets/right-hand.png.png" alt="Mano derecha">
+</div>
+
+<div class="content fade-in">
+    <h1>Bienvenido a la aplicación de lenguaje de señas</h1>
+    <a href="../src/pages/translator.html" class="start-button">Iniciar</a>
+    <div style="height: 2000px;"></div> <!-- Simula más contenido -->
+</div>
+
+
+
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Información y descripción de la app -->
+        <div class="footer-section">
+            <div class="logo-container">
+                <h4>SilentEcho</h4>
+            </div>
+            <p class="footer-description">Aplicación innovadora que facilita la comunicación entre personas sordomudas y oyentes mediante tecnología de traducción de lenguaje de señas en tiempo real.</p>
+            <div class="app-badges">
+                <img src="google-play-badge.png" alt="Disponible en Google Play" class="badge">
+                <img src="app-store-badge.png" alt="Descarga en App Store" class="badge">
+            </div>
+        </div>
+
+        <!-- Contacto -->
+        <div class="footer-section">
+            <h4>Contacto</h4>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Bogotá, Colombia</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:contacto@silentecho.com">contacto@silentecho.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-headset"></i>
+                    <p>Soporte técnico: soporte@silentecho.com</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Redes Sociales y Newsletter -->
+        <div class="footer-section">
+            <h4>Síguenos</h4>
+            <div class="social-links">
+                <a href="https://www.facebook.com/SilentEchoApp" target="_blank" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://twitter.com/SilentEchoApp" target="_blank" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.instagram.com/SilentEchoApp" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/c/SilentEchoApp" target="_blank" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/silentecho" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+
+            <div class="newsletter">
+                <h4>Newsletter</h4>
+                <p>Suscríbete para recibir actualizaciones</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Tu correo electrónico" required>
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <p>&copy; 2024 SilentEcho. Todos los derechos reservados.</p>
+            <div class="legal-links">
+                <a href="src/pages/terms.html">Términos de Servicio</a>
+                <span>|</span>
+                <a href="src/pages/privacy.html">Política de Privacidad</a>
+                <span>|</span>
+                <a href="src/pages/cookies.html">Política de Cookies</a>
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="/frontend/src/js/navbar.js"></script>
+    <script src="/frontend/src/js/scroll-animation.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/frontend/src/js/graficas.js"></script>
+</body>
+</html>
